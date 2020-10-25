@@ -23,10 +23,12 @@ def handle_definitions(defs):
 
     res = ""
 
-    # if the current thing is a tag, it corresponds to the next definition
+    # If the current thing is a tag, it corresponds to the next definition
     if d["class"] == ['meaning-tags']:
       tag = d.text + "\n"
       continue
+
+
 
     # If the definition gives an example sentence
     if d.find('div', class_="sentence"):
@@ -45,6 +47,16 @@ def handle_definitions(defs):
 
       else: 
         keys = ["definition", "example", "translation"]
+
+    # If the current thing is a Wikipedia definition, handle the abstract
+    elif tag == "Wikipedia definition\n":
+        
+        res = tag + d.text.split('\u200bA', maxsplit=1)[0]
+        res += '\n' + d.find(class_="meaning-abstract").next
+        res +=  ''.join(str(elem) for elem in d.find(class_="meaning-abstract").findChildren())
+
+        tag  = ""
+        keys = ["definition", "info", "abstract"]
 
     # If there's no example sentence
     else:
@@ -227,11 +239,13 @@ def defs_to_markdown(defs):
     f'<dt><strong> {defs["definition"]} </strong></dt><br>\n'
   )
 
-  if "info" in defs :
+  if ("info" in defs):
     md += f'  <dd> {defs["info"]} </dd><br>\n'
 
+  if ("abstract" in defs):
+    md += f'  <dd> {defs["abstract"]} </dd><br>\n'
 
-  if (len(defs) > 2):
+  elif (len(defs) > 2):
     md += (
       f'  <dd> {defs["example"]} </dd>\n'
       f'  <dd> {defs["translation"]} </dd><br>\n'
@@ -244,8 +258,12 @@ def get_kanji(word):
 
   url       = f"https://jisho.org/word/{word}"
   response  = get(url)
+
+  print(url, response)
   soup      = BeautifulSoup(response.text, 'html.parser')
   just_kana = True
+
+  
 
   for i in word:
     if not is_kana(i):

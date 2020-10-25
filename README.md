@@ -1,11 +1,13 @@
 # Jisho
 Python script which takes a kanji, scrapes [Jisho](https://jisho.org/) for its definition and turns this information into markdown output for notes. The output can be directly appended to a markdown file, or it can be copied and pasted into a markdown viewer/editor. [Typora](https://typora.io/) is a very aesthetically pleasing markdown edition/viewer which supports a variety of syntax. Alternatively, you can use an online editor such as [StackEdit](https://stackedit.io/app#), which also supports the markdown syntax my program returns.
 
+You must have Python 3 and pip installed. Using pip, install "requests" and "beautifulsoup4".
+
 # Examples
 
 ## Kanji
 
-Running ```> python3 Jisho.py 旅行 >> Notes.md``` in the terminal will result in Notes.md being filled with:
+Running ```> python3 Jisho.py 旅行 >> Notes.md``` in the MacOS terminal will result in Notes.md being filled with:
 <br>
 
 # <ruby> 旅 <rp>(</rp><rt> りょ </rt><rp>)</rp> 行 <rp>(</rp><rt> こう </rt><rp>)</rp> </ruby>
@@ -35,7 +37,7 @@ On   :[コウ、](https://www.jisho.org/search/%E8%A1%8C%20%E3%81%93%E3%81%86), 
 
 ## Vocabulary
 
-Running ```> python3 Jisho.py だらけ >> Notes.md``` in the terminal will result in:
+Running ```> python3 Jisho.py だらけ >> Notes.md``` in the MacOS terminal will result in:
 <br>
 
 # だらけ<ruby> </ruby>
@@ -83,6 +85,6 @@ TO DO:
 - Fix markdown output for certain words which are not being formatted correctly.
 
 Kanji to fix:
-- [ ] 問題
+- [x] 問題
 - [ ] 疲れる
 - [ ] 赤
